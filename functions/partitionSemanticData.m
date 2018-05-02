@@ -1,4 +1,4 @@
-function [imdsTrain, imdsValid, imdsTest, pxdsTrain, pxdsValid, pxdsTest] = partitionSemanticData(imds, pxds)
+function [imdsTrain, imdsValid, pxdsTrain, pxdsValid] = partitionSemanticData(imds, pxds)
 %PARTITIONSEMANTICDATA Summary of this function goes here
 %   Detailed explanation goes here
 
