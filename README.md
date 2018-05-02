@@ -57,7 +57,7 @@ The predicted segmentation is matched to the class with maximum soft-max probabi
 
 With trained SegNet, we can fulfill pixel-wise classification with accuracy > 90% and intersection-over-union > 90%.
 
-Ref:
+Reference:
 
 [1] K. S. Novoselov, A. K. Geim, S. V. Morozov, D. Jiang, Y. Zhang, S. V. Dubonos, I. V. Grigorieva and A. A. Firsov. "Electric Field Effect in Atomically Thin Carbon Films". Science 306, 666-669 (2004).
 
