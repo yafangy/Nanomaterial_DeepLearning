@@ -6,7 +6,22 @@ We start with optical images of graphene/graphite flakes taken under various lab
 By SLIC superpixelization and DBSCAN clustering, we are able to associate each pixels in the optical image to three classes: "background", "monolayer" and "multilayer". 
 We then perform data augmentation and feed the labeled images to a semantic segmentation network for pixel-wise classification. 
 
-(1) Training image pixel-wise labeling
+Background:
+
+In 2003, one ingenious physicist took a block of graphite, some Scotch tape and a lot of patience and persistence and produced a magnificent new wonder material that is a million times thinner than paper, stronger than diamond, more conductive than copper. 
+It is called graphene.
+It took the physics community by storm when the first paper appeared in Science magazine in 2004, and it is now one of the most highly cited papers in materials physics (37348 citations up to date).
+In 2010, the Nobel Prize in Physics was awarded jointly to Andre Geim and Konstantin Novoselov "for ground breaking experiments regarding the two-dimensional material graphene". 
+
+Despite numerous groundbreaking discoveries and proliferating research on graphene and 2D materials beyond graphene, the technique of producing such high-quality 2D materials remains almost unchanged as it is first invented: mechanical exfoliations.           
+It relies on using Scotch tape to repeatedly peel away the the top layer to achieve progressively thinner flakes attached to the tape.
+After transferring these flakes onto the surface of a silicon wafer, the flakes with different thicknesses are randomly distributed on a centimeter-scale wafer.
+Researchers need to spend hours seating in front of a microscope, in order to search for one eligible flake that are truly one atom thick.
+This task is very time-consuming and difficult especially for inexperienced researchers.
+
+The goal of our work is to implement an algorithm that segments the microscopic images into regions labeled as "background", "monolayer", and "multilayer". To achieve this goal, we did the following.
+
+(1) Pixel-wise labeling for training data
 
 We aim to label the training image pixel-by-pixel with one of the three labels: 1-background; 2-monolayer; 3-multilayer.
 Since each image contains millions of pixels, it is a formidable job to label them one by one. 
@@ -41,3 +56,13 @@ The predicted segmentation is matched to the class with maximum soft-max probabi
 (4) Test the trained SegNet on test data
 
 With trained SegNet, we can fulfill pixel-wise classification with accuracy > 90% and intersection-over-union > 90%.
+
+Ref:
+
+[1] K. S. Novoselov, A. K. Geim, S. V. Morozov, D. Jiang, Y. Zhang, S. V. Dubonos, I. V. Grigorieva and A. A. Firsov. "Electric Field Effect in Atomically Thin Carbon Films". Science 306, 666-669 (2004).
+
+[2] R. Achanta, A. Shaji, K. Smith, A. Lucchi, P. Fua and S. Susstrunk. "SLIC Superpixels Compared to State-of-the-Art Superpixel Methods". PAMI. Vol 34 No 11. November 2012. pp 2274-2281.
+
+[3] Martin Ester, Hans-Peter Kriegel, Jrg Sander, Xiaowei Xu (1996). ”A density-based algorithm for discovering clusters in large spatial databases with noise”. Proceedings of the Second International Con- ference on Knowledge Discovery and Data Mining (KDD-96). AAAI Press. pp. 226-231.
+
+[4] Badrinarayanan V, Kendall A, Cipolla R. "Segnet: A deep convolutional encoder-decoder architecture for image segmentation". arXiv preprint arXiv:1511.00561. 2015.
