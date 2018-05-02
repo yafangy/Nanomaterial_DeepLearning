@@ -1,0 +1,15 @@
+function [centers, labels] = findClusterCenters(imageLabels)
+%FINDCLUSTERCENTERS find the center coordinates of each cluster as
+%indicated in the matrix imageLabels
+%   [centers, labels] = findClusterCenters(imageLabels)
+%       Input: 
+%           imageLabels: matrix of labels
+%       Output:
+%           centers: a N by 2 matrix that indicates the coordinates of the
+%               centers in the image; N is the number of labels
+%           labels: a N by 1 vector of labels
+
+clusterLabelsUniq = unique(imageClustersFinal);
+
+end
+

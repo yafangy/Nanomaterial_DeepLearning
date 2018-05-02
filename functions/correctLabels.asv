@@ -1,0 +1,17 @@
+function imageLabelsCorrected = correctLabels(imageLabels, imageClusters, labelsToBeCorrected, cellClusters)
+%CORRECTLABELS corect the labels in imageLabels 
+%   imageLabelsCorrected = correctLabels(imageLabels, imageClusters, labelsToBeCorected, cellClusters)
+%       Input: 
+%           imageLabels: label matrix to be corrected
+%           imageClusters: cluster matrix (with smaller cluster regions)
+%               used to correct the imageLabels matrix.
+%           labelsToBeCorrected: a list of labels that needs to be
+%               corrected
+%           cellClusters: a cell array of cluster lists that associated
+%               with the imageClusters matrix that needs to be corrected.
+%               The cellClusters -> labelToBeCorrected mapping specified
+%               the cluster regions in imageCluster matrix 
+
+
+end
+
