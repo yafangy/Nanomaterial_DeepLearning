@@ -13,7 +13,6 @@ We then perform data augmentation and feed the labeled images to a semantic segm
 * Step2_data_generation.mlx
 * Step3_training.m
 * Step4_testwithExampleImage.m
-* configure.m
 
 #### List of files and folders
 * Functions used in codes above are in "/functions" and "/kovesi"
@@ -117,10 +116,10 @@ A semantic segmentation network can fulfill pixel-wise classification for given 
 It can associate each pixel of an image with a class label, i.e. “background”, “monolayer”, “multilayer” in our case.
 This [SegNet](https://www.mathworks.com/help/vision/examples/semantic-segmentation-using-deep-learning.html) we use in our paper has an encoder network and a corresponding decoder network, followed by a final pixel-wise classification layer. 
 
-Each encoder in the encoder network performs convolution with several filters to produce a set of feature maps, followed with batch normalized. 
-Then an element-wise ReLU layer is applied. 
-Then a max-pooling layer with a 2*2 window and stride 2 is performed and result in downsampling of the image by a factor of 2. 
-The decoder produces produces sparse feature maps in the decoder network by upsampling its input feature maps using the max-unpooling.
+Each encoder in the encoder network performs convolution with several filters to produce a set of feature maps, followed with [batch normalized](https://www.mathworks.com/help/nnet/ref/nnet.cnn.layer.batchnormalizationlayer.html). 
+Then an element-wise [ReLU layer](https://www.mathworks.com/help/nnet/ref/nnet.cnn.layer.relulayer.html) is applied. 
+Then a [max-pooling layer](https://www.mathworks.com/help/nnet/ref/nnet.cnn.layer.maxpooling2dlayer.html) with a 2*2 window and stride 2 is performed and result in downsampling of the image by a factor of 2. 
+The decoder produces produces sparse feature maps in the decoder network by upsampling its input feature maps using the [max-unpooling](https://www.mathworks.com/help/nnet/ref/nnet.cnn.layer.maxunpooling2dlayer.html).
 This step utilizes memorized max-pooling indices from the corresponding encoder layers. 
 Convolution is then performed on these feature maps with trainable decoder filters to produce dense feature maps, followed with batch normalization.
 An element-wise ReLU layer is then applied. 
@@ -131,14 +130,14 @@ In our problem, there is a large variation in the number of pixels from each cla
 For example, number of "background" pixels is expected to be much larger than number of pixels labeled as "monolayer" and "multilayer".
 If not handled properly, this imbalance can jeopardize the learning process and the correct labeling of the dominant classes will always be favored. 
 It hampers the capability to classify small object in the image.
-Therefore, there is a need to weight the loss differently based on the class pixel numbers. 
+Therefore, there is a need to **weight the loss differently** based on the class pixel numbers. 
 One way to assign the weights is to compute the ratio of the median of class frequencies based on the entire training set divided by the class frequency. 
 The weights are then assigned to each class when calculating the loss function.
 This implies that larger classes in the training set have a class weight smaller than 1 and the weights
 of the smallest classes are the largest.
 In addition to this method, we can manually tune the class weights to optimize the training output.
 Another important factor that affects the training performance is the depth of the network.
-To demonstrate that, we can also configure networks with different numbers of convolutional layers in the encoder and decoder network (i.e. the depth of the network).
+To demonstrate that, we can also configure networks with different numbers of convolutional layers in the encoder and decoder network (i.e. the **depth** of the network).
 
 Here we use *segnetLayers* function provided in neural network toolbox by matlab to configure a [SegNet](https://www.mathworks.com/help/vision/examples/semantic-segmentation-using-deep-learning.html) network. 
 We are able to modify the depth of the network and specify the class weights described above.
@@ -157,7 +156,7 @@ After implementation of training, we test our network with test images.
 We can obtain accuracy of pixel-wise classification for each class, which provides an overview of the network performance.
 In general, the semantic segmentation results overlap well for classes that are large, such as "background". 
 However, smaller objects like are not as accurate. 
-The amount of overlap per class can be measured using the intersection-over-union (IoU) metric, also known as the [Jaccard](https://www.mathworks.com/help/images/ref/jaccard.html) index. 
+The amount of overlap per class can be measured using the **intersection-over-union (IoU) metric**, also known as the [Jaccard](https://www.mathworks.com/help/images/ref/jaccard.html) index. 
 The IoU metric complies better with the visual results. 
 With trained SegNet, we can fulfill pixel-wise classification with accuracy > 90% and IoU > 90%. 
 In the figure below, we show a few examples of test results.
