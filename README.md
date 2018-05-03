@@ -5,7 +5,7 @@
 
 We present identification of monolayer nano-material using semantic pixel-wise segmentation methods. 
 We start with optical images of graphene/graphite flakes taken under various laboratory conditions. 
-With the help of SLIC superpixelization and DBSCAN clustering, we are able to associate each pixels in the optical image to three classes: "background", "monolayer" and "multilayer". 
+With the help of [SLIC superpixelization](https://ieeexplore.ieee.org/abstract/document/6205760/) and [DBSCAN clustering](http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf), we are able to associate each pixels in the optical image to three classes: "background", "monolayer" and "multilayer". 
 We then perform data augmentation and feed the labeled images to a semantic segmentation network for pixel-wise classification.
 
 #### List of codes
@@ -21,6 +21,10 @@ We then perform data augmentation and feed the labeled images to a semantic segm
 * trainNet.mat is the training outcome from Step3_training.m
 * trainNet.mat is also used as SegNet input for Step4_testwithExampleImage.m 
 * Test images for Step4_testwithExampleImage.m are in "/Test_example"
+
+Here we need to mention that the [SLIC](https://ieeexplore.ieee.org/abstract/document/6205760/) + [DBSCAN](http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf) (with two threshold) might be useful for identifying object with high contrast and low contrast, and not limited in identification of nano-materials.
+
+![Pelli-Robson test](Fig_Pelli-Robson.png)
 
 ### Background
 
@@ -69,13 +73,13 @@ The normalization transformation can be expressed as L <= 50L/L_ref, a <= a-a_re
 
 In order to segment the image into regions with meaningful boundaries, several superpixelization based clustering algorithms are used. 
 [Peter Koveski's Image Segmentation Package](http://www.peterkovesi.com/matlabfns/) is used.
-In this algorithm, we firstly over-segment the input images into superpixels with the SLIC method. 
+In this algorithm, we firstly over-segment the input images into superpixels with the [SLIC](https://ieeexplore.ieee.org/abstract/document/6205760/) method. 
 Superpixel is a clustering of neighboring pixels with perceptually meaningful similarities. 
 The [SLIC]((https://ieeexplore.ieee.org/abstract/document/6205760/)) method adapts the [K-means clustering](https://www.mathworks.com/help/stats/kmeans.html) algorithm into the superpixelization problems. 
 The distance used in the K-means clustering algorithm is the distance in the combinational pixel position space (x, y) and the L\*a\*b color space (l, a, b) with a specified scaling factor. 
 To eliminate the searching effort, the algorithm also confined the regions of k-means searching to a limited range instead of the entire image as in the standard K-means clustering algorithm. 
 In order to make sure the superpixelization is able to capture finest features of the images, we increased the total number of superpixels and decreased the minimum superpixel diameters. 
-The first and second rows of figure below show respectively some typical normalized images and the corresponding superpixel segmentations after the SLIC algorithm.
+The first and second rows of figure below show respectively some typical normalized images and the corresponding superpixel segmentations after the [SLIC](https://ieeexplore.ieee.org/abstract/document/6205760/) algorithm.
 
 ![Labeling process](Fig3.png)
 
@@ -94,9 +98,9 @@ The green boundaries indicate the "monolayer" region, while the blue boundaries 
 
 2. Normalize the resized image in the L\*a\*b color space with respect to the background color.
 
-3. Superpixelize the normalized image with the SLIC algorithm.
+3. Superpixelize the normalized image with the [SLIC](https://ieeexplore.ieee.org/abstract/document/6205760/) algorithm.
 
-4. Perform the DBSCAN clustering based on the superpixelization result, with two different well-tuned distance threshold values (called fine clustering and rough clustering).
+4. Perform the [DBSCAN](http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf) clustering based on the superpixelization result, with two different well-tuned distance threshold values (called fine clustering and rough clustering).
 
 5. Propose the bigest cluster in the rough clustering results as the "background" labeled region, and the rest as the "multilayer" regions. And combine the fine clustering results in the "background" region and the rough clustering results in the "multilayer" regions as the new clusters.
 
